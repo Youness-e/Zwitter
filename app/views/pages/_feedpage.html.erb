@@ -1,0 +1,36 @@
+<section class="page-feed">
+    <div class="row">
+        <div class="col-md-4">
+            <p class="text-center">
+                <%= image_tag(current_user.picture) %>
+                <%= current_user.email %>
+            </p>
+        </div>
+        <div class="col-md-8">
+            <%= bootstrap_form_for(@newPost, url: posts_add_path()) do |f| %>
+                <%= f.text_area :content %>
+                <%= f.submit %>
+            <% end %>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <% if @posts.any? %>
+                <ul class="posts-list">
+                    <% @posts.each do |post| %>
+                        <li class="row">
+                            <div class="col-md-4">
+                                <p class="text-center">
+                                    <%= image_tag(post.user.picture) %><br />
+                                    <%= post.user.name %> le <%= post.created_at.strftime("%d-%m-%Y %H:%M") %>
+                                </p>                            
+                            </div>
+                            <div class="col-md-8"><%= post.content %></div>                        
+                        </li>
+                    <% end %>
+                </ul>
+            <% end %>
+        </div>
+    </div>
+</section>
